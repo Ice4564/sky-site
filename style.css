@@ -1,0 +1,195 @@
+/* Reset พื้นฐาน */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* สีพื้นหลังและตัวหนังสือ */
+body {
+  background-color: #121212; /* ดำเข้ม */
+  color: #e0e0e0; /* สีเทาอ่อน */
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  background-color: #1f1f1f;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
+
+header h1 {
+  color: #f0f0f0;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+nav ul li a {
+  color: #bbb;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #4caf50; /* สีเขียวสว่างเวลาชี้ */
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #222, #000);
+  padding: 80px 40px;
+  text-align: center;
+  box-shadow: inset 0 0 60px #111;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #4caf50;
+  text-shadow: 0 0 10px #4caf50;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+.hero .btn {
+  background-color: #4caf50;
+  color: #121212;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.hero .btn:hover {
+  background-color: #66bb6a;
+}
+
+/* Section ทั่วไป */
+section {
+  padding: 50px 40px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
+
+section h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #4caf50;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 8px;
+}
+
+section p {
+  color: #bbb;
+  font-size: 1.1rem;
+}
+
+/* ฟอร์ม */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  background-color: #222;
+  border: 1.5px solid #333;
+  padding: 14px 18px;
+  border-radius: 8px;
+  color: #eee;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+  min-height: 40px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+  background-color: #292929;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: #121212;
+  border: none;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #66bb6a;
+}
+
+/* ข้อความสถานะ */
+#status-message {
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 10px;
+  background-color: #1f1f1f;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>sky | Creative Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>sky</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">หน้าแรก</a></li>
+        <li><a href="#placeholder">จะใส่อะไรก็ใส่</a></li>
+        <li><a href="#contact">ส่งข้อความ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h2>จะส่งอะไรก็ส่ง</h2>
+    <p>ไม่ว่าคุณจะมีข้อเสนอแนะ หรือแค่ทักทาย เราก็ยินดีรับฟัง</p>
+    <a href="#contact" class="btn">ส่งข้อความของคุณ</a>
+  </section>
+
+  <section id="placeholder">
+    <h2>จะใส่อะไรก็ใส่</h2>
+    <p>ตรงนี้คือพื้นที่สำหรับสิ่งที่คุณอยากแชร์ เราก็ยินดีรับฟัง</p>
+  </section>
+
+  <section id="contact">
+    <h2>ส่งข้อความของคุณมาให้เรา</h2>
+    <form action="https://formspree.io/f/xqaqoqjy" method="POST" id="contact-form">
+      <input type="text" name="name" placeholder="ชื่อของคุณ" required />
+      <input type="email" name="_replyto" placeholder="อีเมล (ถ้ามี)" />
+      <textarea name="message" placeholder="เล่าข้อเสนอแนะหรือข้อความของคุณ" required></textarea>
+      <button type="submit">ส่งข้อความ</button>
+    </form>
+    <p id="status-message"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 sky. สงวนลิขสิทธิ์</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
