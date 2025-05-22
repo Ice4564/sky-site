@@ -1,195 +1,145 @@
-/* Reset พื้นฐาน */
+/* รีเซ็ตพื้นฐานและตั้งค่า box-sizing */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* สีพื้นหลังและตัวหนังสือ */
 body {
-  background-color: #121212; /* ดำเข้ม */
-  color: #e0e0e0; /* สีเทาอ่อน */
+  font-family: 'Kanit', sans-serif;
+  background-color: #0d0d0d;
+  color: #f0f0f0;
   line-height: 1.6;
+  background-image: radial-gradient(circle at top left, #1a1a1a, #0d0d0d);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
-/* Header */
 header {
-  background-color: #1f1f1f;
-  padding: 20px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  transition: background 0.5s;
   border-bottom: 1px solid #333;
 }
 
-header h1 {
-  color: #f0f0f0;
-  font-size: 1.8rem;
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  margin: 0;
+  color: #00bcd4;
   letter-spacing: 1px;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-}
-
-nav ul li a {
-  color: #bbb;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #4caf50; /* สีเขียวสว่างเวลาชี้ */
-}
-
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #222, #000);
-  padding: 80px 40px;
-  text-align: center;
-  box-shadow: inset 0 0 60px #111;
-}
-
-.hero h2 {
-  font-size: 3rem;
-  margin-bottom: 15px;
-  color: #4caf50;
-  text-shadow: 0 0 10px #4caf50;
-}
-
-.hero p {
+p {
   font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #ccc;
-}
-
-.hero .btn {
-  background-color: #4caf50;
-  color: #121212;
-  padding: 14px 36px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 700;
-  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
-  transition: background-color 0.3s ease;
-}
-
-.hero .btn:hover {
-  background-color: #66bb6a;
-}
-
-/* Section ทั่วไป */
-section {
-  padding: 50px 40px;
-  max-width: 900px;
-  margin: 0 auto 40px;
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.8);
-}
-
-section h2 {
-  margin-bottom: 20px;
-  font-size: 2rem;
-  color: #4caf50;
-  border-bottom: 2px solid #4caf50;
-  padding-bottom: 8px;
-}
-
-section p {
   color: #bbb;
-  font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
-/* ฟอร์ม */
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.6s ease-in-out;
+  border: 1px solid #2a2a2a;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.2rem;
 }
 
-input[type="text"],
-input[type="email"],
-textarea {
-  background-color: #222;
-  border: 1.5px solid #333;
-  padding: 14px 18px;
+label {
+  color: #ccc;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+input, textarea {
+  padding: 1rem;
+  border: 1px solid #444;
   border-radius: 8px;
-  color: #eee;
+  background: #2a2a2a;
+  color: #fff;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
-  resize: vertical;
-  min-height: 40px;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-  border-color: #4caf50;
+input:focus, textarea:focus {
+  border-color: #00bcd4;
+  box-shadow: 0 0 8px rgba(0, 188, 212, 0.5);
   outline: none;
-  background-color: #292929;
 }
 
-textarea {
-  min-height: 120px;
-}
-
-button[type="submit"] {
-  background-color: #4caf50;
-  color: #121212;
+button {
+  padding: 1rem;
+  background: linear-gradient(145deg, #00bcd4, #0097a7);
+  color: black;
+  font-weight: bold;
   border: none;
-  padding: 15px;
-  font-size: 1.2rem;
-  border-radius: 30px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 700;
-  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0,188,212,0.3);
 }
 
-button[type="submit"]:hover {
-  background-color: #66bb6a;
+button:hover {
+  background-color: #0097a7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,188,212,0.4);
 }
 
-/* ข้อความสถานะ */
-#status-message {
-  margin-top: 15px;
-  font-weight: 600;
-}
-
-/* Footer */
 footer {
   text-align: center;
-  padding: 20px 10px;
-  background-color: #1f1f1f;
+  padding: 1.5rem;
+  background: #1f1f1f;
   color: #888;
-  font-size: 0.9rem;
-  margin-top: auto;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+  border-top: 1px solid #333;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    gap: 10px;
+@media (max-width: 768px) {
+  main {
+    margin: 1rem;
+    padding: 1.5rem;
   }
 
-  nav ul {
-    flex-direction: column;
-    gap: 12px;
+  h1 {
+    font-size: 2rem;
   }
 
-  .hero h2 {
-    font-size: 2.2rem;
+  input, textarea {
+    font-size: 1rem;
   }
+
+  button {
+    font-size: 1rem;
+  }
+}
+
+/* ปุ่ม toggle dark/light mode (ไม่เปิดใช้ แต่เผื่อในอนาคต) */
+.toggle-theme {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
