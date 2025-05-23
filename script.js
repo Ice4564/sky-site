@@ -5,8 +5,10 @@ const messageBox = document.getElementById('formMessage');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  // แสดงสถานะ loading
+  submitBtn.classList.add('loading');
   messageBox.textContent = "กำลังส่งข้อความ...";
-  messageBox.className = "message-box loading";
+  messageBox.className = "message-box visible";
 
   const formData = new FormData(form);
 
@@ -20,14 +22,16 @@ form.addEventListener('submit', async (e) => {
     });
 
     if (response.ok) {
-      messageBox.textContent = "ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อเรา 😊";
-      messageBox.className = "message-box success";
+      messageBox.textContent = "ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อเรา 😊 จะติดต่อกลับในไม่ช้า";
+      messageBox.className = "message-box visible success";
       form.reset();
     } else {
-      throw new Error('error');
+      throw new Error('เกิดข้อผิดพลาดในการส่ง');
     }
   } catch (error) {
     messageBox.textContent = "ส่งข้อความไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
-    messageBox.className = "message-box error";
+    messageBox.className = "message-box visible error";
+  } finally {
+    submitBtn.classList.remove('loading');
   }
 });
