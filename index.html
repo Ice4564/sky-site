@@ -3,19 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>เว็บของ Sky | Sky Site</title>
+  <title>รับทำเว็บไซต์ | Sky Site</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <header>
-    <h1>เว็บของ Sky</h1>
-    <p>ยินดีต้อนรับสู่ Sky Site - ที่ที่คุณสามารถติดต่อและส่งข้อความถึงเราได้อย่างง่ายดาย</p>
+    <h1>รับทำเว็บไซต์</h1>
+    <p>Sky Site - เรารับทำเว็บไซต์คุณภาพสูง ใช้งานง่าย รองรับทุกอุปกรณ์</p>
   </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>เปลี่ยนไอเดียของคุณให้เป็นเว็บไซต์จริง</h2>
+      <p>เรารับทำเว็บไซต์ทันสมัย ตอบโจทย์ธุรกิจทุกประเภท</p>
+      <a href="#contact" class="cta-button">ติดต่อเรา</a>
+    </div>
+  </section>
+
+  <section class="services">
+    <h2>บริการของเรา</h2>
+    <ul>
+      <li>ออกแบบเว็บไซต์ใหม่ทั้งระบบ</li>
+      <li>เว็บไซต์สำหรับร้านค้า</li>
+      <li>เว็บไซต์พอร์ตโฟลิโอส่วนตัว</li>
+      <li>ระบบติดต่อ / แบบฟอร์ม</li>
+    </ul>
+  </section>
+
   <main>
     <section class="intro">
       <h2>ส่งข้อความถึงเรา</h2>
-      <p>กรอกแบบฟอร์มด้านล่าง หากมีคำถามหรือข้อเสนอแนะ เรายินดีรับฟังทุกข้อเสนอแนะของคุณ</p>
+      <p>กรอกแบบฟอร์มด้านล่าง หากต้องการให้เราช่วยออกแบบเว็บไซต์ให้คุณ</p>
     </section>
 
     <form id="contactForm" action="https://formspree.io/f/xqaqoqjy" method="POST">
@@ -28,19 +48,51 @@
       <label for="message">ข้อความ</label>
       <textarea id="message" name="message" placeholder="พิมพ์ข้อความที่นี่..." rows="5" required></textarea>
 
-      <button type="submit" id="submitBtn">ส่งข้อความ</button>
+      <button id="submitBtn" type="submit"><i class="fa fa-paper-plane"></i> ส่งข้อความ</button>
+      <div id="formMessage" class="message-box"></div>
     </form>
-    <div id="formMessage" class="message-box"></div>
   </main>
+
   <footer>
     <div class="contact-info">
       <h2>ติดต่อเรา</h2>
       <p><strong>Instagram:</strong> <a href="https://www.instagram.com/sky._.abc" target="_blank" rel="noopener noreferrer">sky._.abc</a></p>
-      <p><strong>อีเมล:</strong> <a href="mailto:dechakhaphuthnkvt65@gmail.com">dechakhaphuthnkvt65@gmail.com</a></p>
     </div>
     <p class="copyright">© 2025 Sky Site. สงวนลิขสิทธิ์ทุกประการ</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const messageBox = document.getElementById('formMessage');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.classList.add('loading');
+      messageBox.textContent = "กำลังส่งข้อความ...";
+      messageBox.className = "message-box";
+
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          messageBox.textContent = "ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อเรา 😊";
+          messageBox.classList.add('success');
+          form.reset();
+        } else {
+          throw new Error('เกิดข้อผิดพลาดในการส่ง');
+        }
+      } catch (error) {
+        messageBox.textContent = "ส่งข้อความไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
+        messageBox.classList.add('error');
+      } finally {
+        submitBtn.classList.remove('loading');
+      }
+    });
+  </script>
 </body>
 </html>
