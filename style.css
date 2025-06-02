@@ -1,157 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
-
 body {
-  font-family: 'Kanit', sans-serif;
-  background: #0f121a;
-  color: #cfd8dc;
-  margin: 0; padding: 0;
-  display: flex; flex-direction: column; min-height: 100vh;
-}
-
-header {
-  padding: 2rem 1rem;
-  text-align: center;
-  background: #121828;
-  box-shadow: 0 4px 15px rgba(18, 24, 40, 0.8);
-  color: #80deea;
-}
-header h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin: 0;
-  letter-spacing: 1.5px;
-}
-header p {
-  margin-top: 0.3rem;
-  font-weight: 300;
-  color: #a7bbc7;
-}
-
-main {
-  flex-grow: 1;
-  max-width: 600px;
-  margin: 2rem auto;
-  background: #1c2236dd;
-  border-radius: 12px;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
-  color: #eceff1;
-}
-
-h2 {
-  color: #4dd0e1;
-  margin-bottom: 1rem;
-}
-
-form {
+  font-family: "Sarabun", sans-serif;
+  background-color: #f2f2f2;
   display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
-
-label {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: #90a4ae;
-}
-
-input, textarea {
-  padding: 0.9rem 1rem;
-  border-radius: 8px;
-  border: 2px solid #455a64;
-  background: #262f44;
-  color: #cfd8dc;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-input::placeholder,
-textarea::placeholder {
-  color: #78909c;
-}
-input:focus, textarea:focus {
-  border-color: #26c6da;
-  box-shadow: 0 0 10px #26c6daaa;
-  outline: none;
-  transform: scale(1.02);
-}
-
-button {
-  background: linear-gradient(135deg, #00838f, #006064);
-  border: none;
-  border-radius: 8px;
-  padding: 1rem;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #b2ebf2;
-  cursor: pointer;
-  box-shadow: 0 5px 15px #00838faa;
-  position: relative;
-  overflow: hidden;
-  transition: filter 0.3s ease;
-}
-button:hover {
-  filter: brightness(120%);
-  box-shadow: 0 7px 20px #26c6da;
-}
-button:disabled {
-  background: #37474f;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* Loading spinner */
-.loading-spinner {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 24px; height: 24px;
-  margin: -12px 0 0 -12px;
-  border: 3px solid transparent;
-  border-top: 3px solid #b2ebf2;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: none;
-}
-button.loading .loading-spinner {
-  display: block;
-}
-button.loading span {
-  visibility: hidden;
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Message box */
-.message-box {
-  margin-top: 1rem;
-  padding: 0.8rem 1rem;
-  border-radius: 6px;
-  font-weight: 600;
+.container {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
   text-align: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  max-width: 360px;
 }
-.message-box.visible {
-  opacity: 1;
+h1 {
+  color: #2e8bff;
 }
-.message-box.success {
-  background: #26c6daaa;
-  color: #004d40;
-}
-.message-box.error {
-  background: #e53935bb;
-  color: #fff;
-}
-
-footer {
-  text-align: center;
-  padding: 1.5rem;
-  background: #121828;
-  color: #78909c;
-}
-footer a {
-  color: #26c6da;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
+p {
+  font-size: 18px;
+  color: #333;
 }
