@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>สุขสันต์วันเกิด 💖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Itim', cursive;
+      background: linear-gradient(to bottom, #ffe6f0, #ffc1e3);
+      overflow: hidden;
+    }
+
+    .countdown {
+      font-size: 10rem;
+      color: #ff4081;
+      text-shadow: 0 0 20px white, 0 0 40px #ff69b4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      animation: zoom 1s ease infinite alternate;
+    }
+
+    @keyframes zoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1rem;
+      gap: 2rem;
+      height: 100vh;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      text-shadow: 0 0 10px white, 0 0 20px #ff69b4;
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: #c2185b;
+      max-width: 90%;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #fff;
+      line-height: 1.6;
+    }
+
+    .kitty {
+      width: 180px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: rise 4s linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.8);
+    }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+  <video muted autoplay loop>
+    <source src="https://cdn.pixabay.com/video/2023/07/04/174867-843732416_large.mp4" type="video/mp4">
+  </video>
+
+  <!-- เพลง -->
+  <audio id="bg-music" autoplay loop>
+    <source src="Desktop-2025.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- นับถอยหลัง -->
+  <div class="countdown" id="countdown">3</div>
+
+  <!-- เนื้อหาอวยพร -->
+  <div class="content" id="mainContent">
+    <h1>🎂 สุขสันต์วันเกิด! 🎀</h1>
+    <p>
+      ขอให้ปีนี้เป็นปีที่สดใส เหมือนคิตตี้ 💕  
+      เต็มไปด้วยความสุข ความรัก และรอยยิ้มที่น่ารักแบบเธอเลยนะ 🐧
+    </p>
+    <img class="kitty" src="https://pngimg.com/uploads/hello_kitty/hello_kitty_PNG70.png" alt="Hello Kitty" />
+  </div>
+
+  <script>
+    const countdownEl = document.getElementById("countdown");
+    const content = document.getElementById("mainContent");
+    const music = document.getElementById("bg-music");
+
+    let count = 3;
+    countdownEl.textContent = count;
+
+    const interval = setInterval(() => {
+      count--;
+      if (count > 0) {
+        countdownEl.textContent = count;
+      } else {
+        clearInterval(interval);
+        countdownEl.style.display = "none";
+        content.style.display = "flex";
+
+        // ปล่อยหัวใจลอย
+        setInterval(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('heart');
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.background = ['#ff69b4', '#ff99cc', '#ffc0cb'][Math.floor(Math.random()*3)];
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 4000);
+        }, 300);
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
