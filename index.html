@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สุขสันต์วันเกิด</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Itim', cursive;
+      background: linear-gradient(to bottom, #ffe6f0, #ffc1e3);
+      overflow: hidden;
+    }
+
+    video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.8);
+    }
+
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .active {
+      display: flex;
+    }
+
+    .start-button {
+      font-size: 1.8rem;
+      padding: 1rem 2rem;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+
+    .countdown-number {
+      font-size: 8rem;
+      color: #ff4081;
+      animation: zoom 1s ease infinite alternate;
+      text-shadow: 0 0 20px white, 0 0 40px #ff69b4;
+    }
+
+    @keyframes zoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .message h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px white, 0 0 20px #ff69b4;
+    }
+
+    .message p {
+      font-size: 1.2rem;
+      color: #c2185b;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #fff;
+      line-height: 1.6;
+    }
+
+    .kitty {
+      width: 180px;
+      margin-top: 2rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: rise 4s linear infinite;
+      opacity: 0.7;
+      z-index: 2;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(45deg); opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- วิดีโอพื้นหลัง -->
+  <video muted autoplay loop>
+    <source src="https://cdn.pixabay.com/video/2023/07/04/174867-843732416_large.mp4" type="video/mp4">
+  </video>
+
+  <!-- เพลง -->
+  <audio id="bg-music" loop>
+    <source src="Desktop-2025.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- หน้าแรก -->
+  <div class="screen active" id="screen1">
+    <h1>🎀 กดเลย 🎉</h1>
+    <p>🎂</p>
+    <button class="start-button" onclick="startCountdown()">🎂</button>
+  </div>
+
+  <!-- หน้า 2: นับถอยหลัง -->
+  <div class="screen" id="screen2">
+    <div class="countdown-number" id="countNum">3</div>
+  </div>
+
+  <!-- หน้า 3: คำอวยพร -->
+  <div class="screen message" id="screen3">
+    <h1>สุขสันต์วันเกิด! 🎂</h1>
+    <p>
+      ขอให้ทุกวันของเธอเต็มไปด้วยรอยยิ้ม ความรัก และความอบอุ่น  
+      เหมือนคิตตี้น่ารักๆ ที่ลอยอยู่รอบตัวเลย 🐧🎀
+    </p>
+    <img class="kitty" src="https://pngimg.com/uploads/hello_kitty/hello_kitty_PNG70.png" alt="Hello Kitty" />
+  </div>
+
+  <script>
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const screen3 = document.getElementById('screen3');
+    const countNum = document.getElementById('countNum');
+    const music = document.getElementById("bg-music");
+
+    function startCountdown() {
+      screen1.classList.remove('active');
+      screen2.classList.add('active');
+
+      // เปิดเพลง
+      music.volume = 0.4;
+      music.play().catch(() => {});
+
+      let count = 3;
+      countNum.textContent = count;
+
+      const countdownInterval = setInterval(() => {
+        count--;
+        if (count >= 1) {
+          countNum.textContent = count;
+        } else {
+          clearInterval(countdownInterval);
+          screen2.classList.remove('active');
+          screen3.classList.add('active');
+          launchHearts();
+        }
+      }, 1000);
+    }
+
+    function launchHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.background = ['#ff69b4', '#ff99cc', '#ffc0cb'][Math.floor(Math.random() * 3)];
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }, 300);
+    }
+  </script>
+</body>
+</html>
