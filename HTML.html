@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>V45 SMART PREDATOR KEY</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
+        .key-box { background: #1e1e1e; border: 2px solid #00beff; padding: 20px; display: inline-block; border-radius: 10px; }
+        h1 { color: #00beff; }
+        .date { color: #888; }
+    </style>
+</head>
+<body>
+    <h1>💎 V45 SMART PREDATOR</h1>
+    <p class="date" id="date"></p>
+    <div class="key-box">
+        <p>วันนี้รหัสคือ:</p>
+        <h2 id="key-display">V45-WAIT-CHECKING</h2>
+    </div>
+    <script>
+        // ระบบตั้งรหัสตามวันที่ (เปลี่ยนอัตโนมัติทุกวัน)
+        const date = new Date();
+        const dateString = date.toLocaleDateString();
+        document.getElementById('date').innerText = "วันที่: " + dateString;
+
+        // สร้างรหัสแบบง่ายๆ ตามวันที่ เช่น V45-19-2-2026
+        const dailyKey = "V45-" + date.getDate() + "-" + (date.getMonth()+1);
+        document.getElementById('key-display').innerText = dailyKey;
+    </script>
+</body>
+</html>
